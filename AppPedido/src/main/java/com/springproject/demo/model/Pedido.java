@@ -31,16 +31,10 @@ public class Pedido implements Serializable {
     @Column(name = "total")
     private double total;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<PedidoItem> itensPedido;
+    @OneToMany(mappedBy = "pedido")
+    private List<PedidoItem> itensPedido = new ArrayList<>();
 
     public Pedido() {
-    }
-
-    public Pedido(int codPedido, Cliente cliente, double total) {
-        this.codPedido = codPedido;
-        this.cliente = cliente;
-        this.total = total;
     }
 
     public Pedido(int codPedido, Cliente cliente, double total, List<PedidoItem> itensPedido) {
@@ -84,6 +78,7 @@ public class Pedido implements Serializable {
 
     @Override
     public String toString() {
-        return "Pedido{" + "codPedido=" + codPedido + ", cliente=" + cliente + ", total=" + total + ", itenspedido=" + itensPedido + '}';
+//        return "Pedido{" + "codPedido=" + codPedido + ", cliente=" + cliente + ", total=" + total + ", itenspedido=" + itensPedido + '}';
+          return "";
     }
 }

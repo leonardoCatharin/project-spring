@@ -1,6 +1,5 @@
 package com.springproject.demo.model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "pedidoitem")
-public class PedidoItem implements Serializable {
-    
+@Table(name= "pedido")
+public class PedidoItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codpedidoitem")
@@ -31,7 +29,6 @@ public class PedidoItem implements Serializable {
 
     public PedidoItem(int codPedidoItem, Produto produto, double quantidade) {
         this.codPedidoItem = codPedidoItem;
-//        this.pedido = pedido;
         this.produto = produto;
         this.quantidade = quantidade;
     }
