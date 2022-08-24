@@ -1,5 +1,6 @@
 package com.springproject.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +11,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "pedido")
+@Table(name= "pedidoitem")
 public class PedidoItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codpedidoitem")
-    private int codPedidoItem;
+    private Integer codPedidoItem;
+    
+    @ManyToOne
+    @JoinColumn(name = "codpedido")@JsonIgnore
+    private Pedido pedido;
     
     @ManyToOne
     @JoinColumn(name = "codproduto")
@@ -27,12 +32,19 @@ public class PedidoItem {
     public PedidoItem() {
     }
 
+    public PedidoItem(int codPedidoItem, Pedido pedido, Produto produto, double quantidade) {
+        this.codPedidoItem = codPedidoItem;
+        this.pedido = pedido;
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
+
     public PedidoItem(int codPedidoItem, Produto produto, double quantidade) {
         this.codPedidoItem = codPedidoItem;
         this.produto = produto;
         this.quantidade = quantidade;
     }
-
+    
     public int getCodPedidoItem() {
         return codPedidoItem;
     }
@@ -57,6 +69,14 @@ public class PedidoItem {
         this.quantidade = quantidade;
     }
 
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+    
     @Override
     public String toString() {
         return "PedidoItem{" + "codPedidoItem=" + codPedidoItem + ", produto=" + produto + ", quantidade=" + quantidade + '}';

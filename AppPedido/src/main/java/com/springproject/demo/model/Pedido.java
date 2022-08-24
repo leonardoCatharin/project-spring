@@ -16,13 +16,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "pedido")
-public class Pedido implements Serializable {
+@Table(name = "pedido")
+public class Pedido {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codpedido")
-    private int codPedido;
+    private Integer codPedido;
     
     @ManyToOne
     @JoinColumn(name = "codcliente", referencedColumnName = "codcliente")
@@ -31,8 +31,8 @@ public class Pedido implements Serializable {
     @Column(name = "total")
     private double total;
     
-    @OneToMany(mappedBy = "pedido")
-    private List<PedidoItem> itensPedido = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
+    private List<PedidoItem> itensPedido;
 
     public Pedido() {
     }
@@ -72,8 +72,8 @@ public class Pedido implements Serializable {
         return itensPedido;
     }
 
-    public void setItensPedido(List<PedidoItem> itenspedido) {
-        this.itensPedido = itenspedido;
+    public void setItensPedido(List<PedidoItem> itensPedido) {
+        this.itensPedido = itensPedido;
     }
 
     @Override
