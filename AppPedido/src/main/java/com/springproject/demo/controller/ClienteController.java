@@ -2,6 +2,10 @@ package com.springproject.demo.controller;
 
 import com.springproject.demo.model.Cliente;
 import com.springproject.demo.service.ClienteService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
+@Api("Api Clientes")
 public class ClienteController {
     
     /* Injeção de depência via anotação */
@@ -35,6 +40,11 @@ public class ClienteController {
     
     /* @PathVariable vincula o parâmetro passado pelo método com a variável do path */
     @GetMapping("cliente/{codcliente}")
+    @ApiOperation("Obter detalhes de um cliente")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Cliente encontrado"),
+        @ApiResponse(code = 404, message = "Cliente não encontrado")
+    })
     public ResponseEntity<Optional<Cliente>> getByIdCliente(@PathVariable Integer codcliente){
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.getByIdCliente(codcliente));
     }
